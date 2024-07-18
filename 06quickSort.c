@@ -7,30 +7,36 @@ void swap(int *a, int *b)
   *b = t;
 }
 
-// Function to partition the array on the basis of pivot element
 int partition(int arr[], int low, int high)
 {
-  int pivot = arr[high];
-  int i = (low - 1);
+  int pivot = arr[low];
+  int i = low + 1;
+  int j = high;
 
-  for (int j = low; j < high; j++)
+  while (i <= j)
   {
-
-    if (arr[j] <= pivot)
+    while (i <= j && arr[i] <= pivot)
     {
       i++;
+    }
+    while (i <= j && arr[j] > pivot)
+    {
+      j--;
+    }
+    if (i < j)
+    {
       swap(&arr[i], &arr[j]);
     }
   }
-  swap(&arr[i + 1], &arr[high]);
-  return (i + 1);
+  swap(&arr[low], &arr[j]);
+
+  return j;
 }
 
 void quicksort(int arr[], int low, int high)
 {
   if (low < high)
   {
-
     int pi = partition(arr, low, high);
 
     quicksort(arr, low, pi - 1);
@@ -65,5 +71,6 @@ int main()
 
   printf("Sorted array: \n");
   printArray(arr, n);
+
   return 0;
 }
